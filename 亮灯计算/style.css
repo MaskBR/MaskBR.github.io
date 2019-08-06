@@ -58,4 +58,12 @@ body{
     display: block;
     color:white;
 }
-
+.submit{
+    width:180;
+    background:#2c3e50;
+    border:0;
+    color: white;
+    padding:8px 16px;
+    border-radius:6px;
+    cursor: pointer;
+}
