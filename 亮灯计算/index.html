@@ -1,13 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang='zh-Hans'>
     <head>
         <meta charset='UTF-8'>
         <link rel='icon' type='image/x-icon' href='img/light.ico'/>
         <title>This is a demo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
         <link rel="stylesheet" href="style.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="https://kit.fontawesome.com/62e0f421c5.js"></script>
     </head>
     <body>
+        <div class='question'>
+                <h2>思考题</h2>
+                <p>有编号为1，2，3，…2019的2019盏亮着的电灯，各有一个拉线开关控制，若将编号为2的倍数，3的倍数，5的倍数的灯线都各拉一下，这时，亮着的灯有多少盏？</p>
+                <img src='img/light.png' width="64" height="64" class='answer-img'>
+        </div>
+        <div class='show-light-btn'><i class="far fa-lightbulb"></i>
+            展示计算界面
+        </div>
         <div class="put-in-box">
+            <div class='hide-form-btn'><i class="fas fa-times"></i></div>
             <div class = 'put-in-form'>
                 <h1 class="title">REMAIN LIGHT</h1>
                 <input type="text" id="pxArry" class="pxArry" placeholder="请输入灯数 eg:2019">
@@ -15,6 +27,40 @@
                 <input type="submit" value="确定" class="submit">
                 <p class = 'result'></p>
             </div>
+        </div>
+        <div class="put-answer-box">
+            <div class='hide-answer-btn'><i class="fas fa-times"></i></div>
+            <div class='answer'>
+                <h2>思考题</h2>
+                <p>有编号为1，2，3，…2019的2019盏亮着的电灯，各有一个拉线开关控制，若将编号为2的倍数，3的倍数，5的倍数的灯线都各拉一下，这时，亮着的灯有多少盏？</p>
+                <h2>解析</h2>
+                <p>2的倍数：2019÷2=1009....1</p>
+                <p>3的倍数：2019÷3=673</p>
+                <p>5的倍数：2019÷5=403...4</p>
+                <p>既是2的倍数也是3的倍数：2019÷(2×3)=336...3</p>
+                <p>既是2的倍数也是5的倍数：2019÷(2×5)=201...9</p>
+                <p>既是3的倍数也是5的倍数：2019÷(3×5)=134...9</p>
+                <p>同时是2、3、5的倍数2019÷(2×3×5)=67...9</p>
+                <p>亮着的灯就是拨动0次或者拨动2次；</p>
+                <p>0次：1009+673+403-336-201-134+67=1481    2019-1482=538</p>
+                <p>2次：336+201+134-67*3=470</p>
+                <p>总计：470+538=1008盏</p>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(".show-light-btn").on('click',function(){
+                $(".put-in-box").toggleClass("showed");
+            })
+            $(".hide-form-btn").on('click',function(){
+                $(".put-in-box").toggleClass("showed");
+            })
+            $(".answer-img").on('click',function(){
+                $(".put-answer-box").toggleClass("showed2");
+            })
+            $(".hide-answer-btn").on('click',function(){
+                $(".put-answer-box").toggleClass("showed2");
+            })
+        </script>
     </body>
     <script src="liangdeng.js">
     </script>
