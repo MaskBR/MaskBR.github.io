@@ -3,25 +3,20 @@
     <head>
         <meta charset='UTF-8'>
         <title>This is a demo</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="https://kit.fontawesome.com/62e0f421c5.js"></script>
     </head>
     <body>
-        <div id="container">
-            <div class="wrapper">
-                <h1 class="title">demo程序</h1>
+        <div class="put-in-box">
+            <div class = 'put-in-form'>
+                <h1 class="title">DEMO程序</h1>
+                <input type="text" id="pxArry" class="pxArry" placeholder="请输入灯数：eg:2019">
+                <input type="text" id="NumArry" class="NumArry" placeholder="请输入开关规则eg:2,3,5">
+                <label>（以 ，分割）</label>
+                <input type="submit" value="确定" class="submit">
+                <p class = 'result'></p>
             </div>
-        </div>
-        <div class = form>
-            <label>请输入灯数：</label>
-            <input type="text" id="pxArry" class="pxArry">
-        <div>
-            <label>请输入开关规则</label>
-            <input type="text" id="NumArry" class="NumArry">
-            <label>（以 ，分割）</label>
-        </div>    
-            <input type="submit" value="确定" class="submit">
-        </div>
-        <div>
-        <p class = 'result'></p>
         </div>
     </body>
     <script src="liangdeng.js">
