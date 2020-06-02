@@ -17,7 +17,8 @@
       }
       .lastResult { 
         color: white;
-        width: 15% ;
+        width: 20% ;
+        height: 20%;
         padding: 3px;
         text-align:center;
       }
@@ -33,7 +34,7 @@
   <body>
     <h1>猜数字游戏</h1>
 
-    <p>我刚才随机选定了一个500以内的自然数。看你能否在 10 次以内猜中它。每次我都会告诉你所猜的结果是高了还是低了。</p>
+    <p>我刚才随机选定了一个1000以内的自然数。看你能否在 10 次以内猜中它。每次我都会告诉你所猜的结果是高了还是低了。</p>
 
     <div class="form">
       <label for="guessField">请猜数: </label>
@@ -50,7 +51,7 @@
 
     <script>
       
-      let randomNumber = [[Math.floor(Math.random()*500)+1,1],1]
+      //let randomNumber = Math.floor(Math.random()*1000)+1;
       const guesses = document.querySelector('.guesses');
       const lastResult = document.querySelector('.lastResult');
       const lowOrHi = document.querySelector('.lowOrHi');
@@ -65,18 +66,21 @@
       guessField.focus();
 
       function checkGuess(){
-          let userGuess = Number(guessField.value);
-          if (guessCount === 1) {
+          let userGuess = guessField.value;
+          fetch('http://45.77.31.73:2233/?userGuess='+userGuess+'&guessCount='+guessCount).then(function(response){
+            response.text().then(function(text){
+              var resultReturned=text;
+              if (guessCount === 1) {
               guesses.textContent = '上次猜的数： ';
-          }
-          guesses.textContent += userGuess+ ' ';
-          if (userGuess === randomNumber[0][0]){
+              }
+              guesses.textContent += userGuess+ ' ';
+
+              if (resultReturned === 'right'){
               lastResult.textContent = '恭喜你答对了！';
-              lastResult.style.width = '100%';
               lastResult.style.backgroundColor = 'green';
               lowOrHi.textContent = '';
               setGameOver();
-            } else if (guessCount === 10){
+              }else if (guessCount === 10){
               lastResult.textContent = '!!!Game Over!!!';
               lastResult.style.textAlign = 'center';
               lastResult.style.backgroundColor = 'red';
@@ -85,13 +89,14 @@
               lastResult.style.boxShadow = '3px 3px 6px black';
               lastResult.style.width = '50%';
               setGameOver();
-            } else {
+            }
+              else {
               lastResult.textContent = '猜错了';
               lastResult.style.backgroundColor = 'red';
-              if (userGuess > randomNumber[0][0]) {
+              if (resultReturned === 'high') {
               lowOrHi.textContent = '猜高了';
               lowOrHi.style.backgroundColor = 'yellow';
-              } else if(userGuess < randomNumber[0][0]){
+              } else if(resultReturned === 'low'){
                   lowOrHi.textContent = '猜低了';
                   lowOrHi.style.backgroundColor = 'gray';
               }
@@ -101,8 +106,11 @@
             guessChance.textContent = '剩余猜测次数' +' :' + reminderCount;
             guessField.value = ''
             guessField.focus();
-        }
-        guessSubmit.addEventListener('click',checkGuess);
+            })
+          })
+      }
+
+      guessSubmit.addEventListener('click',checkGuess);
       document.onkeydown = function(e){
         if (e.keyCode==13 && guessCount != 11){
           checkGuess();
@@ -111,6 +119,7 @@
       function setGameOver(){
         guessField.disabled = true;
         guessSubmit.disabled = true;
+        lowOrHi.style.display='none';
         resetButton = document.createElement('button');
         resetButton.textContent = '开始游戏';
         document.body.appendChild(resetButton);
@@ -128,6 +137,7 @@
 
         guessField.disabled = false;
         guessSubmit.disabled = false;
+        lowOrHi.style.display='block';
         guessField.value = '';
         lastResult.style.padding = '0px';
         lastResult.style.fontSize = '100%';
@@ -138,7 +148,6 @@
 
         lastResult.style.backgroundColor = 'white';
 
-        randomNumber = [[Math.floor(Math.random()*1000)+1,1],1];
       }
     </script>
   </body>
